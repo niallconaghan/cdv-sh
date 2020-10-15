@@ -1,3 +1,7 @@
+:root {
+
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -8,7 +12,8 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #e2e2e2 !important;
+  background-color: #282c2d !important ;
+  color: #d1cdc7 !important;
 }
 
 .main-heading {
@@ -28,4 +33,11 @@ html, body {
 .created {
   font-size: 32px;
   font-weight: lighter;
+}
+
+
+button {
+  color: rgb(232, 230, 227) !important;
+  background-color: rgb(44, 47, 49) !important;
+  border-color: rgb(121, 112, 99) !important;
 }
