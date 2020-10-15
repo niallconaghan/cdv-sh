@@ -1,11 +1,9 @@
 require('dotenv').config();
 const path = require('path');
 const yup = require('yup');
-const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const express = require('express');
-const bodyParser = require('body-parser');
 const monk = require('monk');
 const { nanoid } = require('nanoid');
 const app = express();
@@ -14,10 +12,11 @@ const db = monk(process.env.MONGODB_URI);
 const urls = db.get('urls');
 urls.createIndex({ slug: 1 }, { unique: true });
 
-app.use(cors());
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
 app.use(morgan('tiny'));
-app.use(bodyParser.json());
+app.use(express.json())
 app.use(express.static('./public'));
 
 const notFoundPath = path.join(__dirname, 'public/404.html');
@@ -54,7 +53,7 @@ app.post('/url', async (req, res, next) => {
     if (!slug) {
       slug = nanoid(5);
     } else if (await isExisting(slug)) {
-      throw new Error('Slug in use. 🍔');
+      throw new Error('Slug in use. 🦕 ');
     }
 
     const newUrl = { slug: slug.toLowerCase(), url };
